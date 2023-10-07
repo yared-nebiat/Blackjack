@@ -78,9 +78,3 @@ class Player:
         self.new_card = Deck().deal(1)
         self.hand.append(self.new_card)
         return self.new_card
-
-    def split(self):
-        pass
-
-    def double_down(self):
-        pass

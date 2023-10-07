@@ -149,45 +149,52 @@ while playing:
     sleep(2)
 
     bust_count = 0
+    
     for player in players:
-        print("\n{}: Hit, stand, double down, split or surrender".format(player.name))
-        choice = input(": ").strip()
+        while True:
+            print("\n{}: Hit or stand".format(player.name))
+            choice = input(": ").strip()
 
-        if choice.lower() == "hit":
+            if choice.lower() == "hit":
 
-            sleep(1)
-            
-            while True:
-
-                print("{} hits!".format(player.name))
                 sleep(1)
-                new_card = player.hit()
-                print("\n{} gets: {} of {} | Total of {}"
-                    .format(player.name, new_card[0],  new_card[1], player.hand_total()))
-                sleep(1)
+                
+                while True:
 
-                if player.hand_total() == 21:
-                    break
+                    print("{} hits!".format(player.name))
+                    sleep(1)
+                    new_card = player.hit()
+                    print("\n{} gets: {} of {} | Total of {}"
+                        .format(player.name, new_card[0],  new_card[1], player.hand_total()))
+                    sleep(1)
 
-                if not player.busted() :
-
-                    again = input("hit or stand\n:").strip()
-
-                    if again.lower() == "hit":
-                        continue
-                    else:
-                        print("{} stands.".format(player.name))
+                    if player.hand_total() == 21:
                         break
-                else:
-                    print("\nBust!")
-                    player.wager = 0
-                    print("{} loses their wager".format(player.name))
-                    out.append(player)
-                    bust_count += 1
-                    break
 
-        elif choice.lower() == "stand":
-            print("\n{} stands.".format(player.name))
+                    if not player.busted() :
+
+                        again = input("hit or stand\n:").strip()
+
+                        if again.lower() == "hit":
+                            continue
+                        else:
+                            print("{} stands.".format(player.name))
+                            break
+                    else:
+                        print("\nBust!")
+                        player.wager = 0
+                        print("{} loses their wager".format(player.name))
+                        out.append(player)
+                        bust_count += 1
+                        break
+                break
+
+            elif choice.lower() == "stand":
+                print("\n{} stands.".format(player.name))
+                break
+
+                
+
 
     for i in range(bust_count):
         players.remove(out[-1])
